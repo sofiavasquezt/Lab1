@@ -75,13 +75,14 @@ public class CalculadoraEstadisticas
 	 */
 	public String PaisPorAtleta(String atleta)
 	{
+		String resultado = null;
 		Atleta nombre = buscarAtleta(atleta);
-		String resultado = nombre.buscarAtletapais();
-		 
-		if (resultado != null);
+		if (nombre != null)
 		{
-			return resultado;
+			resultado = nombre.buscarAtletapais();
 		}
+		return resultado;
+		
 		
 	}
 	/**

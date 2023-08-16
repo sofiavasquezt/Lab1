@@ -119,7 +119,14 @@ public class ConsolaOlimpicos
 		System.out.println("\n" + "Pais que representa el atleta" + "\n");
 		String nombre = input("Por favor ingrese el nombre del atleta de interes");
 		String elPais = calculadora.PaisPorAtleta(nombre);
-		System.out.println("El pais que representa el atleta" + nombre + " es: " +elPais);
+		if (elPais != null)
+		{
+			System.out.println("El pais que representa el atleta" + nombre + " es: " +elPais);
+		}
+		else
+		{
+			System.out.println("El atleta no existe");
+		}
 	}
 	/**
 	 * Le muestra el usuario el porcentaje de atletas que son medallistas
