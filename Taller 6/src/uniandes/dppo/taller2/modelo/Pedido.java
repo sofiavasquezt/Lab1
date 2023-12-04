@@ -43,7 +43,8 @@ public class Pedido
 		 */
 		public double precioFinal;
 		
-		
+		private static final int montomax = 150000;
+	    
 		// ************************************************************************
 				// Constructores
 				// ************************************************************************
@@ -79,11 +80,14 @@ public class Pedido
 				 * 
 				 * @param nuevoitemsPedido Los nuevos items que se van a registrar.
 				 */
-				public void agregarProducto(Producto nuevoProducto)
+				public void agregarProducto(Producto nuevoProducto) throws PedidoExcedeMontoException 
 				{
 					listaProductos.add(nuevoProducto.getNombre());
 					double precioProductoNuevo = nuevoProducto.getPrecio();
 					this.precioFinal += precioProductoNuevo;
+					if (precioFinal + nuevoProducto.getPrecio() > montomax) {
+			            throw new PedidoExcedeMontoException();
+			        }
 				}
 				
 				public String getNombre() 

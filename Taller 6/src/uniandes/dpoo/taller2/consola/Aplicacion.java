@@ -7,10 +7,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import uniandes.dppo.taller2.modelo.Combo;
+import uniandes.dppo.taller2.modelo.HamburguesaException;
 import uniandes.dppo.taller2.modelo.Ingrediente;
+import uniandes.dppo.taller2.modelo.IngredienteRepetidoException;
 import uniandes.dppo.taller2.modelo.Pedido;
 import uniandes.dppo.taller2.modelo.ProductoAjustado;
 import uniandes.dppo.taller2.modelo.ProductoMenu;
+import uniandes.dppo.taller2.modelo.ProductoRepetidoException;
 import uniandes.dppo.taller2.modelo.Restaurante;
 
 import java.io.PrintWriter;
@@ -34,24 +37,31 @@ public class Aplicacion
 	private Restaurante restaurante = new Restaurante(pedido);
 
 	
-	public static void main(String[] args) throws IOException 
+	public static void main(String[] args) throws IOException, HamburguesaException 
 	{
+		
 		Aplicacion consola = new Aplicacion();
 		System.out.println("\n Bienvenido a el restaurante de las hamburguesas, para iniciar un nuevo pedido ingresa 1 ");
 		consola.cargarArchivos();
 		consola.ejecutarOpcion();
+		
 	}
-	public void cargarArchivos() throws IOException 
-	{
-		   
-		restaurante.cargarInformacionRestaurante
-		("./data/ingredientes.txt", 
-				"./data/menu.txt",
-				"./data/combos.txt");
-
+	
+	public void cargarArchivos() throws IOException, HamburguesaException,IngredienteRepetidoException,ProductoRepetidoException  {
+	    try {
+	        restaurante.cargarInformacionRestaurante(
+	                "./data/ingredientes.txt",
+	                "./data/menu.txt",
+	                "./data/combos.txt"
+	        );
+	    } catch (IngredienteRepetidoException e) {
+	        System.out.println("Error al cargar archivos: " + e.getMessage());
+	    } catch (ProductoRepetidoException e) {
+	        System.out.println("Error al cargar archivos: " + e.getMessage());
+	    }
 	}
 
-	public void ejecutarOpcion() throws NumberFormatException, IOException 
+	public void ejecutarOpcion() throws NumberFormatException, IOException, HamburguesaException
 	{
 		boolean inicio = false;
 		boolean agregado = false;
@@ -122,6 +132,7 @@ public class Aplicacion
 			
 			}
 		}
+		throw new HamburguesaException("NO");
 	}
 	
 	private void iniciar_pedido() throws IOException 
